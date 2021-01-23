@@ -18,7 +18,7 @@ namespace Marck7JR.Gaming.Data
             _library = library;
         }
 
-        public virtual Func<Task<T>>? BuildLibraryAsync => async () =>
+        private async Task<T> BuildGameLibraryAsync()
         {
             ConcurrentQueue<Func<T, IAsyncEnumerable<GameApplication>>> concurrentQueue = new();
 
@@ -28,15 +28,20 @@ namespace Marck7JR.Gaming.Data
             while (concurrentQueue.TryDequeue(out Func<T, IAsyncEnumerable<GameApplication>> result))
             {
                 var applications = await result(_library)
-                    .Where(application => !application.AppId.IsNullOrEmpty())
+                    .Where(application => application.AppId.IsNotNullOrEmpty())
+                    .Where(application => !_library.Applications.ContainsKey(application.AppId!))
                     .ToDictionaryAsync(application => application.AppId!);
 
-                _library.Applications.Union(applications);
+                applications.AsParallel().ForAll(keyValuePair =>
+                {
+                    _library.Applications.Add(keyValuePair);
+                });
             }
 
             return _library;
-        };
+        }
 
+        public virtual Func<Task<T>>? BuildLibraryAsync => BuildGameLibraryAsync;
         public virtual Func<T, IAsyncEnumerable<GameApplication>>? GetApplicationsOfflineAsync { get; }
         public virtual Func<T, IAsyncEnumerable<GameApplication>>? GetApplicationsOnlineAsync { get; }
         public bool IsAvailable => _library.IsAvailable;

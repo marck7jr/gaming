@@ -5,6 +5,17 @@ namespace Marck7JR.Gaming.Data
 {
     public class GameApplication : IGameApplication, IEquatable<GameApplication>
     {
+        public GameApplication()
+        {
+
+        }
+
+        public GameApplication(IGameLibrary library, object? manifest = null)
+        {
+            Issuer = library.GetType();
+            Manifest = manifest;
+        }
+
         public string? Args { get; set; }
         public string? AppId { get; set; }
         public string? DisplayName { get; set; }

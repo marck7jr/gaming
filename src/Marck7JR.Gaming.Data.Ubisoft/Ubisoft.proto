@@ -1,0 +1,13 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Marck7JR.Gaming.Data.Ubisoft.Messages";
+
+message UbisoftApplication {
+	int32 id = 1;
+	int32 installid = 2;
+	string info = 3;
+}
+
+message UbisoftApplicationCollection {
+	repeated UbisoftApplication games = 1;
+}
