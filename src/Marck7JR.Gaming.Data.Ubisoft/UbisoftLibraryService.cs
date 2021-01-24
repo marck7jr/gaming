@@ -15,6 +15,8 @@ namespace Marck7JR.Gaming.Data.Ubisoft
 
         }
 
+        public override Func<UbisoftLibrary, IAsyncEnumerable<GameApplication>>? GetApplicationsOfflineAsync => GetGameApplicationsOfflineAsync;
+
         private async IAsyncEnumerable<GameApplication> GetGameApplicationsOfflineAsync(UbisoftLibrary library)
         {
             if (library is IGameLibrary { IsAvailable: true } && library.GetManifests() is IEnumerable<UbisoftApplicationManifest> applicationManifests)
@@ -40,7 +42,5 @@ namespace Marck7JR.Gaming.Data.Ubisoft
                 }
             }
         }
-
-        public override Func<UbisoftLibrary, IAsyncEnumerable<GameApplication>>? GetApplicationsOfflineAsync => GetGameApplicationsOfflineAsync;
     }
 }

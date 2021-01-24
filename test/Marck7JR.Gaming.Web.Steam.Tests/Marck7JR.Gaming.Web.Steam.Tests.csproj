@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<LangVersion>9.0</LangVersion>
@@ -16,8 +16,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Marck7JR.Gaming.Data.Ubisoft\Marck7JR.Gaming.Data.Ubisoft.csproj" />
-		<ProjectReference Include="..\Marck7JR.Gaming.Data.Tests\Marck7JR.Gaming.Data.Tests.csproj" />
+		<ProjectReference Include="..\..\src\Marck7JR.Gaming.Web.Steam\Marck7JR.Gaming.Web.Steam.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Http\_SteamHttpClientOptions.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

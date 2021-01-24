@@ -1,0 +1,70 @@
+﻿using Marck7JR.Core.Extensions;
+using Marck7JR.Core.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
+
+namespace Marck7JR.Gaming.Web.Steam.Http
+{
+    [TestClass]
+    [DeploymentItem("Http/_SteamHttpClientOptions.json")]
+    public class SteamHttpClientTest
+    {
+        [AssemblyInitialize]
+        public static void InitializeAssembly(TestContext? _)
+        {
+            Host.GetHostBuilder()
+                .ConfigureAppConfiguration((hostBuilderContext, configuration) =>
+                {
+                    configuration.AddJsonFile($"_{nameof(SteamHttpClientOptions)}.json");
+                })
+                .ConfigureServices((hostBuilderContext, services) =>
+                {
+                    services.AddOptions();
+                    services.AddHttpClient<SteamHttpClient>();
+                    services.Configure<SteamHttpClientOptions>(hostBuilderContext.Configuration);
+                });
+        }
+
+        private static SteamHttpClient? _httpClient;
+
+        [ClassInitialize]
+        public static void InitializeTestClass(TestContext? _)
+        {
+            _httpClient = Host.GetHost().Services.GetRequiredService<SteamHttpClient>();
+        }
+
+        public TestContext? TestContext { get; set; }
+
+        [TestMethod]
+        [DataRow("76561198252552650")]
+        public async Task GetOwnedGamesAsync_IsNotNull(string steamId)
+        {
+            var getOwnedGames = await _httpClient!
+                .FromIPlayerService()
+                .GetOwnedGamesAsync(queries: new[] { "include_played_free_games=true", "include_appinfo=true", $"steamid={steamId}" });
+
+            Assert.IsNotNull(getOwnedGames);
+
+            foreach (var game in getOwnedGames!.response.games)
+            {
+                TestContext!.WriteLine($"[{game.appid}] {game.name}");
+            }
+        }
+
+        [TestMethod]
+        [DataRow("76561198252552650")]
+        public async Task GetPlayerSummaries_IsNotNull(params string[] steamids)
+        {
+            var getPlayerSummaries = await _httpClient!
+                .FromISteamUser()
+                .GetGetPlayerSummariesAsync(queries: new[] { $"steamids={string.Join(',', steamids)}" });
+
+            Assert.IsNotNull(getPlayerSummaries);
+            Assert.IsNotNull(getPlayerSummaries?.response.players);
+
+            TestContext?.WriteLine(getPlayerSummaries!.ToJson());
+        }
+    }
+}

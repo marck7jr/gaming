@@ -16,8 +16,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Marck7JR.Gaming.Data.Ubisoft\Marck7JR.Gaming.Data.Ubisoft.csproj" />
-		<ProjectReference Include="..\Marck7JR.Gaming.Data.Tests\Marck7JR.Gaming.Data.Tests.csproj" />
+	  <ProjectReference Include="..\..\test\Marck7JR.Gaming.Data.Tests\Marck7JR.Gaming.Data.Tests.csproj" />
+	  <ProjectReference Include="..\..\test\Marck7JR.Gaming.Web.Steam.Tests\Marck7JR.Gaming.Web.Steam.Tests.csproj" />
+	  <ProjectReference Include="..\Marck7JR.Gaming.Data.Steam\Marck7JR.Gaming.Data.Steam.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="_GetPlayerSummaries.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

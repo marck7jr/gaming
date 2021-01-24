@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Marck7JR.Core" Version="2101.2318.40" />
+    <PackageReference Include="Marck7JR.Core" Version="2101.2404.3" />
   </ItemGroup>
 
 </Project>

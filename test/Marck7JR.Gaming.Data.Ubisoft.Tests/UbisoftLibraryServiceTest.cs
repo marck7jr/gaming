@@ -5,9 +5,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Marck7JR.Gaming.Data.Ubisoft
 {
     [TestClass]
-    public class UbisoftLibraryBuilderTest : GameLibraryServiceTest<UbisoftLibraryService, UbisoftLibrary>
+    public class UbisoftLibraryServiceTest : GameLibraryServiceTest<UbisoftLibraryService, UbisoftLibrary>
     {
-        static UbisoftLibraryBuilderTest()
+        static UbisoftLibraryServiceTest()
         {
             Host.GetHostBuilder().ConfigureServices((host, services) =>
             {
