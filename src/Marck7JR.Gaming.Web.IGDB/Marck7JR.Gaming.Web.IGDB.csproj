@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<LangVersion>9.0</LangVersion>
+		<Nullable>enable</Nullable>
+		<TargetFrameworks>
+			netstandard2.0;
+			netstandard2.1;
+			net5.0-windows10.0.19041.0;
+		</TargetFrameworks>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="IGDB.proto" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Google.Protobuf" Version="3.14.0" />
+	  <PackageReference Include="Grpc" Version="2.35.0" />
+	  <PackageReference Include="Grpc.Tools" Version="2.35.0">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Marck7JR.Gaming.Web.Twitch\Marck7JR.Gaming.Web.Twitch.csproj" />
+		<ProjectReference Include="..\Marck7JR.Gaming.Web\Marck7JR.Gaming.Web.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Protobuf Include="IGDB.proto" GrpcServices="Client" />
+	</ItemGroup>
+
+</Project>

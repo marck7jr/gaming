@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<LangVersion>9.0</LangVersion>
@@ -16,16 +16,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Marck7JR.Gaming.Web.Twitch\Marck7JR.Gaming.Web.Twitch.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="Http\_TwitchHttpClientOptions.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Http\_TwitchOAuthResponse.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
+	  <ProjectReference Include="..\..\src\Marck7JR.Gaming.Web.IGDB\Marck7JR.Gaming.Web.IGDB.csproj" />
+	  <ProjectReference Include="..\Marck7JR.Gaming.Web.Twitch.Tests\Marck7JR.Gaming.Web.Twitch.Tests.csproj" />
 	</ItemGroup>
 
 </Project>

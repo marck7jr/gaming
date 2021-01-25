@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Marck7JR.Gaming.Data.Contracts
+﻿namespace Marck7JR.Gaming.Data.Contracts
 {
     public enum GameLibraryProtocolKind
     {
