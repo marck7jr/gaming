@@ -9,7 +9,7 @@ namespace Marck7JR.Gaming.Data.Ubisoft
     {
         static UbisoftLibraryServiceTest()
         {
-            Host.GetHostBuilder().ConfigureServices((host, services) =>
+            HostBinder.GetHostBuilder().ConfigureServices((host, services) =>
             {
                 services.AddSingleton<UbisoftLibrary>();
                 services.AddSingleton<UbisoftLibraryService>();
@@ -19,8 +19,8 @@ namespace Marck7JR.Gaming.Data.Ubisoft
         [ClassInitialize]
         public static void InitializeTestClass(TestContext _)
         {
-            Library = Host.GetHost().Services.GetRequiredService<UbisoftLibrary>();
-            Service = Host.GetHost().Services.GetRequiredService<UbisoftLibraryService>();
+            Library = HostBinder.GetHost().Services.GetRequiredService<UbisoftLibrary>();
+            Service = HostBinder.GetHost().Services.GetRequiredService<UbisoftLibraryService>();
         }
     }
 }

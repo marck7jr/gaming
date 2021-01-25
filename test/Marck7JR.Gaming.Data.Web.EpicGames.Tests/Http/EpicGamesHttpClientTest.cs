@@ -4,6 +4,7 @@ using Marck7JR.Gaming.Web.EpicGames.Http.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -20,7 +21,7 @@ namespace Marck7JR.Gaming.Web.EpicGames.Http
         [AssemblyInitialize]
         public static void InitializeAssembly(TestContext? _)
         {
-            Host.GetHostBuilder()
+            HostBinder.GetHostBuilder()
                 .ConfigureAppConfiguration((hostBuilderContext, configuration) =>
                 {
                     configuration.AddJsonFile($"_{nameof(EpicGamesHttpClientOptions)}.json");
@@ -36,13 +37,14 @@ namespace Marck7JR.Gaming.Web.EpicGames.Http
         [ClassInitialize]
         public static void InitializeTestClass(TestContext _)
         {
-            _httpClient = Host.GetHost().Services.GetRequiredService<EpicGamesHttpClient>();
+            _httpClient = HostBinder.GetHost().Services.GetRequiredService<EpicGamesHttpClient>();
         }
 
         private static EpicGamesHttpClient? _httpClient;
         public TestContext? TestContext { get; set; }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
         public async Task GetOAuthTokenResponseAsync_WithSetSidResponse_IsNotNull()
         {
             var setSidResponse = File.ReadAllText($"_{nameof(SetSidResponse)}.json").FromJson<SetSidResponse>();

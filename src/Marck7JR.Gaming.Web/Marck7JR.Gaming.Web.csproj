@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<LangVersion>9.0</LangVersion>
@@ -11,7 +11,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Marck7JR.Gaming.Web\Marck7JR.Gaming.Web.csproj" />
+	  <ProjectReference Include="..\Marck7JR.Gaming\Marck7JR.Gaming.csproj" />
 	</ItemGroup>
 
 </Project>

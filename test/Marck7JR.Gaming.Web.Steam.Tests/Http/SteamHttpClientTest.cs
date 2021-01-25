@@ -14,7 +14,7 @@ namespace Marck7JR.Gaming.Web.Steam.Http
         [AssemblyInitialize]
         public static void InitializeAssembly(TestContext? _)
         {
-            Host.GetHostBuilder()
+            HostBinder.GetHostBuilder()
                 .ConfigureAppConfiguration((hostBuilderContext, configuration) =>
                 {
                     configuration.AddJsonFile($"_{nameof(SteamHttpClientOptions)}.json");
@@ -32,7 +32,7 @@ namespace Marck7JR.Gaming.Web.Steam.Http
         [ClassInitialize]
         public static void InitializeTestClass(TestContext? _)
         {
-            _httpClient = Host.GetHost().Services.GetRequiredService<SteamHttpClient>();
+            _httpClient = HostBinder.GetHost().Services.GetRequiredService<SteamHttpClient>();
         }
 
         public TestContext? TestContext { get; set; }

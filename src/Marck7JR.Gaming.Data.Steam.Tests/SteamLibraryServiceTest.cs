@@ -17,7 +17,7 @@ namespace Marck7JR.Gaming.Data.Steam
         {
             SteamHttpClientTest.InitializeAssembly(testContext);
 
-            Host.GetHostBuilder()
+            HostBinder.GetHostBuilder()
                 .ConfigureAppConfiguration((hostBuilderContext, configuration) =>
                 {
                     configuration.AddJsonFile($"_{nameof(GetPlayerSummaries)}.json");
@@ -34,8 +34,8 @@ namespace Marck7JR.Gaming.Data.Steam
         [ClassInitialize]
         public static void InitializeTestClass(TestContext? _)
         {
-            Library = Host.GetHost().Services.GetRequiredService<SteamLibrary>();
-            Service = Host.GetHost().Services.GetRequiredService<SteamLibraryService>();
+            Library = HostBinder.GetHost().Services.GetRequiredService<SteamLibrary>();
+            Service = HostBinder.GetHost().Services.GetRequiredService<SteamLibraryService>();
         }
     }
 }

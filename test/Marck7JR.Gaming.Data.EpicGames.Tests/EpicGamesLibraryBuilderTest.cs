@@ -17,7 +17,7 @@ namespace Marck7JR.Gaming.Data.EpicGames
         {
             EpicGamesHttpClientTest.InitializeAssembly(testContext);
 
-            Host.GetHostBuilder()
+            HostBinder.GetHostBuilder()
                 .ConfigureAppConfiguration((hostBuilderContext, configuration) =>
                 {
                     configuration.AddJsonFile($"_{nameof(OAuthTokenResponse)}.json");
@@ -34,8 +34,8 @@ namespace Marck7JR.Gaming.Data.EpicGames
         [ClassInitialize]
         public static void InitializeTestClass(TestContext? _)
         {
-            Library = Host.GetHost().Services.GetRequiredService<EpicGamesLibrary>();
-            Service = Host.GetHost().Services.GetRequiredService<EpicGamesLibraryService>();
+            Library = HostBinder.GetHost().Services.GetRequiredService<EpicGamesLibrary>();
+            Service = HostBinder.GetHost().Services.GetRequiredService<EpicGamesLibraryService>();
         }
     }
 }

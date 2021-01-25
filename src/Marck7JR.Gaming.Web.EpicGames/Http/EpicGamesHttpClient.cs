@@ -74,13 +74,13 @@ namespace Marck7JR.Gaming.Web.EpicGames.Http
 
                 var formUrlEncodedContent = credentials switch
                 {
-                    var _ when exchangeGenerateResponse is not null => new FormUrlEncodedContent(new Dictionary<string, string>
+                    var _ when exchangeGenerateResponse is not null => new FormUrlEncodedContent(new Dictionary<string?, string?>
                     {
                         { "grant_type", "exchange_code" },
                         { "exchange_code", $"{exchangeGenerateResponse.code}" },
                         { "token_type", "eg1" }
                     }),
-                    var _ when oAuthTokenResponse is not null => new FormUrlEncodedContent(new Dictionary<string, string>
+                    var _ when oAuthTokenResponse is not null => new FormUrlEncodedContent(new Dictionary<string?, string?>
                     {
                         { "grant_type", "refresh_token" },
                         { "refresh_token", $"{oAuthTokenResponse.refresh_token}" },
