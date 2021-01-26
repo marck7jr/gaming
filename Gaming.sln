@@ -9,8 +9,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0C40B937-4E76-4958-A999-287B5B7430A4}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{9CCB70C2-DD54-421C-95C3-2DC58435FFC8}"
+	ProjectSection(SolutionItems) = preProject
+		test\Directory.Build.props = test\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marck7JR.Gaming", "src\Marck7JR.Gaming\Marck7JR.Gaming.csproj", "{42F7D674-2324-45F3-8828-65BCC91EADE4}"
 EndProject
@@ -28,8 +34,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marck7JR.Gaming.Web.Steam",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marck7JR.Gaming.Web.Steam.Tests", "test\Marck7JR.Gaming.Web.Steam.Tests\Marck7JR.Gaming.Web.Steam.Tests.csproj", "{CBAAF4CE-779D-4DF1-A64C-EAB488D7665B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marck7JR.Gaming.Data.Steam.Tests", "src\Marck7JR.Gaming.Data.Steam.Tests\Marck7JR.Gaming.Data.Steam.Tests.csproj", "{CFF07A96-CC67-4E33-BBC6-12044A38BB38}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marck7JR.Gaming.Web.EpicGames", "src\Marck7JR.Gaming.Web.EpicGames\Marck7JR.Gaming.Web.EpicGames.csproj", "{516D6E53-4B52-4603-90A7-CB32C6460C96}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marck7JR.Gaming.Data.Web.EpicGames.Tests", "test\Marck7JR.Gaming.Data.Web.EpicGames.Tests\Marck7JR.Gaming.Data.Web.EpicGames.Tests.csproj", "{8A76466B-B650-4CA6-BE28-DB6E7D221BF4}"
@@ -44,9 +48,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marck7JR.Gaming.Web.Twitch"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marck7JR.Gaming.Web.Twitch.Tests", "test\Marck7JR.Gaming.Web.Twitch.Tests\Marck7JR.Gaming.Web.Twitch.Tests.csproj", "{0F6B9A32-F2CC-4D56-9A0B-EF6FD53E276F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marck7JR.Gaming.Web.IGDB", "src\Marck7JR.Gaming.Web.IGDB\Marck7JR.Gaming.Web.IGDB.csproj", "{F4889077-9BC6-4B5D-9548-E0BF7323A8FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marck7JR.Gaming.Web.IGDB", "src\Marck7JR.Gaming.Web.IGDB\Marck7JR.Gaming.Web.IGDB.csproj", "{F4889077-9BC6-4B5D-9548-E0BF7323A8FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marck7JR.Gaming.Web.IGDB.Tests", "test\Marck7JR.Gaming.Web.IGDB.Tests\Marck7JR.Gaming.Web.IGDB.Tests.csproj", "{E2181DF4-AB4C-474F-9CAA-5522BE246AE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marck7JR.Gaming.Web.IGDB.Tests", "test\Marck7JR.Gaming.Web.IGDB.Tests\Marck7JR.Gaming.Web.IGDB.Tests.csproj", "{E2181DF4-AB4C-474F-9CAA-5522BE246AE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marck7JR.Gaming.Data.Steam.Tests", "test\Marck7JR.Gaming.Data.Steam.Tests\Marck7JR.Gaming.Data.Steam.Tests.csproj", "{88FDE1B0-86D9-44F8-A4C3-0EE44E52C791}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -154,18 +160,6 @@ Global
 		{CBAAF4CE-779D-4DF1-A64C-EAB488D7665B}.Release|x64.Build.0 = Release|Any CPU
 		{CBAAF4CE-779D-4DF1-A64C-EAB488D7665B}.Release|x86.ActiveCfg = Release|Any CPU
 		{CBAAF4CE-779D-4DF1-A64C-EAB488D7665B}.Release|x86.Build.0 = Release|Any CPU
-		{CFF07A96-CC67-4E33-BBC6-12044A38BB38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CFF07A96-CC67-4E33-BBC6-12044A38BB38}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CFF07A96-CC67-4E33-BBC6-12044A38BB38}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{CFF07A96-CC67-4E33-BBC6-12044A38BB38}.Debug|x64.Build.0 = Debug|Any CPU
-		{CFF07A96-CC67-4E33-BBC6-12044A38BB38}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CFF07A96-CC67-4E33-BBC6-12044A38BB38}.Debug|x86.Build.0 = Debug|Any CPU
-		{CFF07A96-CC67-4E33-BBC6-12044A38BB38}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CFF07A96-CC67-4E33-BBC6-12044A38BB38}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CFF07A96-CC67-4E33-BBC6-12044A38BB38}.Release|x64.ActiveCfg = Release|Any CPU
-		{CFF07A96-CC67-4E33-BBC6-12044A38BB38}.Release|x64.Build.0 = Release|Any CPU
-		{CFF07A96-CC67-4E33-BBC6-12044A38BB38}.Release|x86.ActiveCfg = Release|Any CPU
-		{CFF07A96-CC67-4E33-BBC6-12044A38BB38}.Release|x86.Build.0 = Release|Any CPU
 		{516D6E53-4B52-4603-90A7-CB32C6460C96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{516D6E53-4B52-4603-90A7-CB32C6460C96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{516D6E53-4B52-4603-90A7-CB32C6460C96}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -274,6 +268,18 @@ Global
 		{E2181DF4-AB4C-474F-9CAA-5522BE246AE1}.Release|x64.Build.0 = Release|Any CPU
 		{E2181DF4-AB4C-474F-9CAA-5522BE246AE1}.Release|x86.ActiveCfg = Release|Any CPU
 		{E2181DF4-AB4C-474F-9CAA-5522BE246AE1}.Release|x86.Build.0 = Release|Any CPU
+		{88FDE1B0-86D9-44F8-A4C3-0EE44E52C791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88FDE1B0-86D9-44F8-A4C3-0EE44E52C791}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88FDE1B0-86D9-44F8-A4C3-0EE44E52C791}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{88FDE1B0-86D9-44F8-A4C3-0EE44E52C791}.Debug|x64.Build.0 = Debug|Any CPU
+		{88FDE1B0-86D9-44F8-A4C3-0EE44E52C791}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{88FDE1B0-86D9-44F8-A4C3-0EE44E52C791}.Debug|x86.Build.0 = Debug|Any CPU
+		{88FDE1B0-86D9-44F8-A4C3-0EE44E52C791}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88FDE1B0-86D9-44F8-A4C3-0EE44E52C791}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88FDE1B0-86D9-44F8-A4C3-0EE44E52C791}.Release|x64.ActiveCfg = Release|Any CPU
+		{88FDE1B0-86D9-44F8-A4C3-0EE44E52C791}.Release|x64.Build.0 = Release|Any CPU
+		{88FDE1B0-86D9-44F8-A4C3-0EE44E52C791}.Release|x86.ActiveCfg = Release|Any CPU
+		{88FDE1B0-86D9-44F8-A4C3-0EE44E52C791}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -287,7 +293,6 @@ Global
 		{D4057860-216B-4C49-9D31-AFD5160174FD} = {0C40B937-4E76-4958-A999-287B5B7430A4}
 		{1C4F80E2-730A-45A6-A5D0-9681707277C2} = {0C40B937-4E76-4958-A999-287B5B7430A4}
 		{CBAAF4CE-779D-4DF1-A64C-EAB488D7665B} = {9CCB70C2-DD54-421C-95C3-2DC58435FFC8}
-		{CFF07A96-CC67-4E33-BBC6-12044A38BB38} = {9CCB70C2-DD54-421C-95C3-2DC58435FFC8}
 		{516D6E53-4B52-4603-90A7-CB32C6460C96} = {0C40B937-4E76-4958-A999-287B5B7430A4}
 		{8A76466B-B650-4CA6-BE28-DB6E7D221BF4} = {9CCB70C2-DD54-421C-95C3-2DC58435FFC8}
 		{D151848E-9779-4813-86FA-D53AF2A6AD15} = {0C40B937-4E76-4958-A999-287B5B7430A4}
@@ -297,6 +302,7 @@ Global
 		{0F6B9A32-F2CC-4D56-9A0B-EF6FD53E276F} = {9CCB70C2-DD54-421C-95C3-2DC58435FFC8}
 		{F4889077-9BC6-4B5D-9548-E0BF7323A8FD} = {0C40B937-4E76-4958-A999-287B5B7430A4}
 		{E2181DF4-AB4C-474F-9CAA-5522BE246AE1} = {9CCB70C2-DD54-421C-95C3-2DC58435FFC8}
+		{88FDE1B0-86D9-44F8-A4C3-0EE44E52C791} = {9CCB70C2-DD54-421C-95C3-2DC58435FFC8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4A363395-7A39-47BB-A0C9-1F8B7D102821}

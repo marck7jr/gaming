@@ -55,7 +55,11 @@ namespace Marck7JR.Gaming.Web.EpicGames.Http
 
             Assert.IsNotNull(oAuthTokenResponse);
 
-            TestContext?.Write(oAuthTokenResponse!.ToJson());
+            var json = await oAuthTokenResponse!.ToJsonAsync();
+
+            await File.WriteAllTextAsync("Http/_OAuthTokenResponse.json", json);
+
+            TestContext?.Write(json);
         }
 
         [TestMethod]
@@ -69,7 +73,11 @@ namespace Marck7JR.Gaming.Web.EpicGames.Http
 
             Assert.IsNotNull(oAuthTokenResponse);
 
-            TestContext?.WriteLine(oAuthTokenResponse!.ToJson());
+            var json = await oAuthTokenResponse!.ToJsonAsync();
+
+            await File.WriteAllTextAsync("Http/_OAuthTokenResponse.json", json);
+
+            TestContext?.WriteLine(json);
         }
 
 
