@@ -5,12 +5,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="Http\_GetPlayerSummaries.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Http\_SteamHttpClientOptions.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
+		<None Update="Http\_GetPlayerSummaries.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Http\_SteamHttpClientOptions.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 </Project>

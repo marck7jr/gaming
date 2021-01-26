@@ -1,6 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Marck7JR.Gaming.Data.Steam\Marck7JR.Gaming.Data.Steam.csproj" />
-    <ProjectReference Include="..\Marck7JR.Gaming.Data.Tests\Marck7JR.Gaming.Data.Tests.csproj" />
-  </ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\Marck7JR.Gaming.Data.Steam\Marck7JR.Gaming.Data.Steam.csproj" />
+		<ProjectReference Include="..\Marck7JR.Gaming.Data.Tests\Marck7JR.Gaming.Data.Tests.csproj" />
+	</ItemGroup>
+
 </Project>
