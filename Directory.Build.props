@@ -7,4 +7,8 @@
 		</PackageReference>
 	</ItemGroup>
 
+	<PropertyGroup>
+		<GitVersionBaseDirectory>$(MSBuildThisFileDirectory)</GitVersionBaseDirectory>
+	</PropertyGroup>
+	
 </Project>
