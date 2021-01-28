@@ -1,8 +1,14 @@
 ﻿<Project>
 
+	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)..\'))" />
+
 	<PropertyGroup>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<LangVersion>9.0</LangVersion>
 		<Nullable>enable</Nullable>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<RepositoryUrl>https://github.com/marck7jr/gaming</RepositoryUrl>
 		<TargetFrameworks>
 			netstandard2.0;
 			netstandard2.1;
