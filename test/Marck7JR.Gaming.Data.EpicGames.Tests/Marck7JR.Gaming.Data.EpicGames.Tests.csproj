@@ -3,6 +3,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\Marck7JR.Gaming.Data.EpicGames\Marck7JR.Gaming.Data.EpicGames.csproj" />
 		<ProjectReference Include="..\Marck7JR.Gaming.Data.Tests\Marck7JR.Gaming.Data.Tests.csproj" />
+		<ProjectReference Include="..\Marck7JR.Gaming.Web.EpicGames.Tests\Marck7JR.Gaming.Web.EpicGames.Tests.csproj" />
 	</ItemGroup>
 
 </Project>
