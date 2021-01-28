@@ -2,9 +2,13 @@ name: .NET
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: 
+    - main
+    - 'releases/**'
   pull_request:
-    branches: [ main, dev ]
+    branches: 
+    - main
+    - 'releases/**'
 
 jobs:
   build:
@@ -25,3 +29,10 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
+    - name: Test
+      continue-on-error: true
+      run: dotnet test --no-build --verbosity normal
+    - name: Publish
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      run: dotnet nuget push "**\*.nupkg" -k $env:NUGET_API_KEY -s https://api.nuget.org/v3/index.json
