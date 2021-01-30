@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Google.Protobuf;
+using System;
 using System.Reflection;
 
-namespace Google.Protobuf
+namespace Marck7JR.Gaming.Web.IGDB.Google.Protobuf
 {
     public static class MessageParserHelper
     {
