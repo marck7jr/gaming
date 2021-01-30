@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <ItemGroup>
-    <PackageReference Include="Marck7JR.Core" Version="1.0.2-prerelease" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Marck7JR.Core" Version="1.0.4-prerelease" />
+	</ItemGroup>
 
 </Project>
