@@ -22,6 +22,12 @@ namespace Marck7JR.Gaming.Data.Steam
             _options = options.Value;
         }
 
+        public SteamLibraryService(IGameLibraryFactory gameLibraryFactory, SteamHttpClient httpClient, IOptions<GetPlayerSummaries> options) : base(gameLibraryFactory)
+        {
+            _httpClient = httpClient;
+            _options = options.Value;
+        }
+
         public override Func<SteamLibrary, IAsyncEnumerable<GameApplication>>? GetApplicationsOfflineAsync => GetGameApplicationOfflineAsync;
         public override Func<SteamLibrary, IAsyncEnumerable<GameApplication>>? GetApplicationsOnlineAsync => GetGameApplicationOnlineAsync;
 

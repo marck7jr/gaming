@@ -14,9 +14,14 @@ namespace Marck7JR.Gaming.Data
     {
         private readonly T _library;
 
-        public GameLibraryService(T library)
+        public GameLibraryService(T? library)
         {
-            _library = library;
+            _library = library ?? throw new ArgumentNullException(nameof(library));
+        }
+
+        public GameLibraryService(IGameLibraryFactory gameLibraryFactory)
+        {
+            _library = gameLibraryFactory.GetGameLibrary<T>() ?? throw new NullReferenceException();
         }
 
         private async Task<T> BuildGameLibraryAsync()

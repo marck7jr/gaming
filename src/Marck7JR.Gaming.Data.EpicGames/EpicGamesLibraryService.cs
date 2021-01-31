@@ -16,7 +16,13 @@ namespace Marck7JR.Gaming.Data.EpicGames
         private readonly EpicGamesHttpClient _httpClient;
         private readonly OAuthTokenResponse _options;
 
-        public EpicGamesLibraryService(EpicGamesLibrary library, EpicGamesHttpClient httpClient, IOptions<OAuthTokenResponse> options) : base(library)
+        public EpicGamesLibraryService(EpicGamesLibrary? library, EpicGamesHttpClient httpClient, IOptions<OAuthTokenResponse> options) : base(library)
+        {
+            _httpClient = httpClient;
+            _options = options.Value;
+        }
+
+        public EpicGamesLibraryService(IGameLibraryFactory gameLibraryFactory, EpicGamesHttpClient httpClient, IOptions<OAuthTokenResponse> options) : base(gameLibraryFactory)
         {
             _httpClient = httpClient;
             _options = options.Value;

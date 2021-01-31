@@ -1,4 +1,5 @@
 using Marck7JR.Core.Extensions.Hosting;
+using Marck7JR.Gaming.Data.Contracts;
 using Marck7JR.Gaming.Data.Extensions;
 using Marck7JR.Gaming.Web.EpicGames.Http;
 using Marck7JR.Gaming.Web.EpicGames.Http.Infrastructure;
@@ -34,8 +35,8 @@ namespace Marck7JR.Gaming.Data.EpicGames
         [ClassInitialize]
         public static void InitializeTestClass(TestContext? _)
         {
-            Library = HostBinder.GetHost().Services.GetRequiredService<EpicGamesLibrary>();
-            Service = HostBinder.GetHost().Services.GetRequiredService<EpicGamesLibraryService>();
+            Library = HostBinder.GetHost().Services.GetRequiredService<IGameLibraryFactory>().GetGameLibrary<EpicGamesLibrary>();
+            Service = HostBinder.GetHost().Services.GetRequiredService<IGameLibraryServiceFactory>().GetGameLibraryService<EpicGamesLibraryService>();
         }
     }
 }

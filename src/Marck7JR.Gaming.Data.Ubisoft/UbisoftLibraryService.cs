@@ -15,6 +15,11 @@ namespace Marck7JR.Gaming.Data.Ubisoft
 
         }
 
+        public UbisoftLibraryService(IGameLibraryFactory gameLibraryFactory) : base(gameLibraryFactory)
+        {
+
+        }
+
         public override Func<UbisoftLibrary, IAsyncEnumerable<GameApplication>>? GetApplicationsOfflineAsync => GetGameApplicationsOfflineAsync;
 
         private async IAsyncEnumerable<GameApplication> GetGameApplicationsOfflineAsync(UbisoftLibrary library)

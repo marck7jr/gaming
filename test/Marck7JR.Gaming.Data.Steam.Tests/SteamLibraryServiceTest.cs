@@ -1,4 +1,5 @@
 using Marck7JR.Core.Extensions.Hosting;
+using Marck7JR.Gaming.Data.Contracts;
 using Marck7JR.Gaming.Data.Extensions;
 using Marck7JR.Gaming.Web.Steam.Http;
 using Marck7JR.Gaming.Web.Steam.Http.ISteamUser;
@@ -34,8 +35,8 @@ namespace Marck7JR.Gaming.Data.Steam
         [ClassInitialize]
         public static void InitializeTestClass(TestContext? _)
         {
-            Library = HostBinder.GetHost().Services.GetRequiredService<SteamLibrary>();
-            Service = HostBinder.GetHost().Services.GetRequiredService<SteamLibraryService>();
+            Library = HostBinder.GetHost().Services.GetRequiredService<IGameLibraryFactory>().GetGameLibrary<SteamLibrary>();
+            Service = HostBinder.GetHost().Services.GetRequiredService<IGameLibraryServiceFactory>().GetGameLibraryService<SteamLibraryService>();
         }
     }
 }
