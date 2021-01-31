@@ -20,7 +20,7 @@ namespace Marck7JR.Gaming.Data
 
         public IDictionary<string, GameApplication> Applications { get; } = new Dictionary<string, GameApplication>();
         public string? DisplayName => GetType().GetCustomAttribute<DescriptionAttribute>().Description;
-        public bool IsAvailable => RegistryKey is not null;
+        public virtual bool IsAvailable => RegistryKey is not null;
         public RegistryKey? RegistryKey { get; protected set; }
 
         public IEnumerator<KeyValuePair<string, GameApplication>> GetEnumerator() => Applications.GetEnumerator();
