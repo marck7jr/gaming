@@ -1,4 +1,5 @@
 using Marck7JR.Core.Extensions.Hosting;
+using Marck7JR.Gaming.Data.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -11,8 +12,7 @@ namespace Marck7JR.Gaming.Data.Ubisoft
         {
             HostBinder.GetHostBuilder().ConfigureServices((host, services) =>
             {
-                services.AddSingleton<UbisoftLibrary>();
-                services.AddSingleton<UbisoftLibraryService>();
+                services.AddGameLibraryService<UbisoftLibraryService>();
             });
         }
 

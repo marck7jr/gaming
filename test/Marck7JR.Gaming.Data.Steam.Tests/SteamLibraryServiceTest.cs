@@ -1,4 +1,5 @@
 using Marck7JR.Core.Extensions.Hosting;
+using Marck7JR.Gaming.Data.Extensions;
 using Marck7JR.Gaming.Web.Steam.Http;
 using Marck7JR.Gaming.Web.Steam.Http.ISteamUser;
 using Microsoft.Extensions.Configuration;
@@ -25,8 +26,7 @@ namespace Marck7JR.Gaming.Data.Steam
                 .ConfigureServices((hostBuilderContext, services) =>
                 {
                     services.AddOptions();
-                    services.AddScoped<SteamLibrary>();
-                    services.AddSingleton<SteamLibraryService>();
+                    services.AddGameLibraryService<SteamLibraryService>();
                     services.Configure<GetPlayerSummaries>(hostBuilderContext.Configuration);
                 });
         }

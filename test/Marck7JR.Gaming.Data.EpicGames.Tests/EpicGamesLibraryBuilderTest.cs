@@ -1,4 +1,5 @@
 using Marck7JR.Core.Extensions.Hosting;
+using Marck7JR.Gaming.Data.Extensions;
 using Marck7JR.Gaming.Web.EpicGames.Http;
 using Marck7JR.Gaming.Web.EpicGames.Http.Infrastructure;
 using Microsoft.Extensions.Configuration;
@@ -25,8 +26,7 @@ namespace Marck7JR.Gaming.Data.EpicGames
                 .ConfigureServices((hostBuilderContext, services) =>
                 {
                     services.AddOptions();
-                    services.AddScoped<EpicGamesLibrary>();
-                    services.AddSingleton<EpicGamesLibraryService>();
+                    services.AddGameLibraryService<EpicGamesLibraryService>();
                     services.Configure<OAuthTokenResponse>(hostBuilderContext.Configuration);
                 });
         }
