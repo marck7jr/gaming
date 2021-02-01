@@ -24,7 +24,7 @@ namespace Marck7JR.Gaming.Data
             _library = gameLibraryFactory.GetGameLibrary<T>() ?? throw new NullReferenceException();
         }
 
-        private async Task<T> BuildGameLibraryAsync()
+        public async Task BuildLibraryAsync()
         {
             ConcurrentQueue<Func<T, IAsyncEnumerable<GameApplication>>> concurrentQueue = new();
 
@@ -43,14 +43,20 @@ namespace Marck7JR.Gaming.Data
                     _library.Applications.Add(keyValuePair);
                 });
             }
-
-            return _library;
         }
 
         public IEnumerator<KeyValuePair<string, GameApplication>> GetEnumerator() => _library.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => _library.GetEnumerator();
 
-        public virtual Func<Task<T>>? BuildLibraryAsync => BuildGameLibraryAsync;
+        public virtual Func<Task<T>>? GetLibraryAsync => () => BuildLibraryAsync().ContinueWith((task) =>
+        {
+            if (task is Task { IsCompleted: true, Status: TaskStatus.RanToCompletion })
+            {
+                // TODO: Need to implement raising events
+            }
+
+            return _library;
+        });
         public virtual Func<T, IAsyncEnumerable<GameApplication>>? GetApplicationsOfflineAsync { get; }
         public virtual Func<T, IAsyncEnumerable<GameApplication>>? GetApplicationsOnlineAsync { get; }
         public bool IsAvailable => _library.IsAvailable;

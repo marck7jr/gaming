@@ -15,9 +15,9 @@ namespace Marck7JR.Gaming.Data
         public virtual async Task BuildAsync_IsNotEmpty()
         {
             Assert.IsNotNull(Service);
-            Assert.IsNotNull(Service!.BuildLibraryAsync);
+            Assert.IsNotNull(Service!.GetLibraryAsync);
 
-            var library = await Service!.BuildLibraryAsync!.Invoke();
+            var library = await Service!.GetLibraryAsync!.Invoke();
 
             Assert.IsTrue(library.Any());
 
