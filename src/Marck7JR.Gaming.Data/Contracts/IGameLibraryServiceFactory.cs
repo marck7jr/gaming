@@ -5,6 +5,6 @@ namespace Marck7JR.Gaming.Data.Contracts
     public interface IGameLibraryServiceFactory
     {
         public T? GetGameLibraryService<T>() where T : IGameLibraryService;
-        public IEnumerable<IGameLibraryService>? GetGameLibraryServices();
+        public IEnumerable<IGameLibraryService> GetGameLibraryServices();
     }
 }

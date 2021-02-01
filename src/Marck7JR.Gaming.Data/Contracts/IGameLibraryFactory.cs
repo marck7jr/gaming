@@ -6,6 +6,6 @@ namespace Marck7JR.Gaming.Data.Contracts
     {
         public IGameLibrary? GetGameLibrary(IGameApplication application);
         public T? GetGameLibrary<T>() where T : IGameLibrary;
-        public IEnumerable<IGameLibrary>? GetGameLibraries();
+        public IEnumerable<IGameLibrary> GetGameLibraries();
     }
 }

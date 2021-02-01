@@ -14,6 +14,6 @@ namespace Marck7JR.Gaming.Data
         }
 
         public T? GetGameLibraryService<T>() where T : IGameLibraryService => (T?)_services.FirstOrDefault(service => service.GetType() == typeof(T));
-        public IEnumerable<IGameLibraryService>? GetGameLibraryServices() => _services;
+        public IEnumerable<IGameLibraryService> GetGameLibraryServices() => _services;
     }
 }

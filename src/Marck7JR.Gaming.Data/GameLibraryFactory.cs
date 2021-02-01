@@ -13,7 +13,7 @@ namespace Marck7JR.Gaming.Data
             _libraries = libraries;
         }
 
-        public IEnumerable<IGameLibrary>? GetGameLibraries() => _libraries;
+        public IEnumerable<IGameLibrary> GetGameLibraries() => _libraries;
         public IGameLibrary? GetGameLibrary(IGameApplication application) => _libraries.FirstOrDefault(library => library.GetType() == application.Issuer);
         public T? GetGameLibrary<T>() where T : IGameLibrary => (T?)_libraries.FirstOrDefault(library => library.GetType() == typeof(T));
     }
