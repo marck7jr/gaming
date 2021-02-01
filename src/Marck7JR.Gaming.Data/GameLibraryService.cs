@@ -28,19 +28,18 @@ namespace Marck7JR.Gaming.Data
         {
             ConcurrentQueue<Func<T, IAsyncEnumerable<GameApplication>>> concurrentQueue = new();
 
-            GetApplicationsOfflineAsync.IfNotNull(action => concurrentQueue.Enqueue(action));
             GetApplicationsOnlineAsync.IfNotNull(action => concurrentQueue.Enqueue(action));
+            GetApplicationsOfflineAsync.IfNotNull(action => concurrentQueue.Enqueue(action));
 
             while (concurrentQueue.TryDequeue(out Func<T, IAsyncEnumerable<GameApplication>> result))
             {
                 var applications = await result(_library)
                     .Where(application => application.AppId.IsNotNullOrEmpty())
-                    .Where(application => !_library.Applications.ContainsKey(application.AppId!))
                     .ToDictionaryAsync(application => application.AppId!);
 
                 applications.AsParallel().ForAll(keyValuePair =>
                 {
-                    _library.Applications.Add(keyValuePair);
+                    this[keyValuePair.Key] = keyValuePair.Value;
                 });
             }
         }
