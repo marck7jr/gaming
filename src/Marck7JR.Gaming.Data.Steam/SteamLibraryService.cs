@@ -44,9 +44,7 @@ namespace Marck7JR.Gaming.Data.Steam
                         name = appsKey.OpenSubKey(names)!.GetValue("Name")?.ToString() ?? string.Empty,
                         installed = appsKey.OpenSubKey(names)!.GetValue("Installed") as int?,
                     })
-                    .Where(x => x.name.IsNotNullOrEmpty() && x.installed.GetValueOrDefault() == 0x1)
-                    .GroupBy(x => x.appId)
-                    .Select(group => group.Last());
+                    .Where(x => x.name.IsNotNullOrEmpty() && x.installed.GetValueOrDefault() == 0x1);
 
                 await Task.CompletedTask;
 
@@ -71,8 +69,7 @@ namespace Marck7JR.Gaming.Data.Steam
             if (getOwnedGames is not null)
             {
                 var games = getOwnedGames.response.games
-                    .GroupBy(game => game.appid)
-                    .Select(group => group.Last());
+                    .Where(game => game is not null);
 
                 foreach (var game in games)
                 {

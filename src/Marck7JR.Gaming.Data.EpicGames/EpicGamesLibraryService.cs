@@ -1,4 +1,5 @@
-﻿using Marck7JR.Gaming.Data.Contracts;
+﻿using Marck7JR.Core.Extensions;
+using Marck7JR.Gaming.Data.Contracts;
 using Marck7JR.Gaming.Data.EpicGames.Extensions;
 using Marck7JR.Gaming.Data.EpicGames.Infrastructure;
 using Marck7JR.Gaming.Web.EpicGames.Http;
@@ -36,9 +37,8 @@ namespace Marck7JR.Gaming.Data.EpicGames
             if (library is IGameLibrary { IsAvailable: true } && library.GetManifests() is IEnumerable<EpicGamesApplicationManifest> applicationManifests)
             {
                 var items = applicationManifests
-                    .Where(manifest => !string.IsNullOrEmpty(manifest.LaunchExecutable))
-                    .GroupBy(manifest => manifest.AppName)
-                    .Select(group => group.Last());
+                    .Where(manifest => manifest is not null)
+                    .Where(manifest => manifest.LaunchExecutable.IsNotNullOrEmpty());
 
                 await Task.CompletedTask;
 
@@ -60,9 +60,8 @@ namespace Marck7JR.Gaming.Data.EpicGames
             {
                 var assetsResponses = await _httpClient.GetAssetsResponsesAsync(_options).ToListAsync();
                 var catalogResponses = await _httpClient.GetCatalogResponsesAsync(assetsResponses)
+                    .Where(catalog => catalog is not null)
                     .Where(catalog => !catalog.categories.Any(_ => _.path.Equals("dlc", StringComparison.InvariantCultureIgnoreCase)))
-                    .GroupBy(catalog => catalog.id)
-                    .SelectAwait(async group => await group.LastAsync())
                     .ToListAsync();
 
                 foreach (var catalog in catalogResponses)

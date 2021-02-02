@@ -30,9 +30,8 @@ namespace Marck7JR.Gaming.Data.Ubisoft
                 var installsNames = installsKey?.GetSubKeyNames();
 
                 var manifests = applicationManifests
-                    .Where(manifest => !manifest.root.is_ulc && manifest.root.start_game is not null)
-                    .GroupBy(manifest => manifest.install_id)
-                    .Select(group => group.Last());
+                    .Where(manifest => manifest is not null)
+                    .Where(manifest => !manifest.root.is_ulc && manifest.root.start_game is not null);
 
                 await Task.CompletedTask;
 

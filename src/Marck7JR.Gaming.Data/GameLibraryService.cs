@@ -26,20 +26,21 @@ namespace Marck7JR.Gaming.Data
 
         public async Task BuildLibraryAsync()
         {
-            ConcurrentQueue<Func<T, IAsyncEnumerable<GameApplication>>> concurrentQueue = new();
+            ConcurrentStack<Func<T, IAsyncEnumerable<GameApplication>>> concurrentStack = new();
 
-            GetApplicationsOnlineAsync.IfNotNull(action => concurrentQueue.Enqueue(action));
-            GetApplicationsOfflineAsync.IfNotNull(action => concurrentQueue.Enqueue(action));
+            GetApplicationsOfflineAsync.IfNotNull(action => concurrentStack.Push(action));
+            GetApplicationsOnlineAsync.IfNotNull(action => concurrentStack.Push(action));
 
-            while (concurrentQueue.TryDequeue(out Func<T, IAsyncEnumerable<GameApplication>> result))
+            while (concurrentStack.TryPop(out Func<T, IAsyncEnumerable<GameApplication>> result))
             {
-                var applications = await result(_library)
-                    .Where(application => application.AppId.IsNotNullOrEmpty())
-                    .ToDictionaryAsync(application => application.AppId!);
+                var applications = await result(_library).ToListAsync();
 
-                applications.AsParallel().ForAll(keyValuePair =>
+                applications.AsParallel().ForAll(application =>
                 {
-                    this[keyValuePair.Key] = keyValuePair.Value;
+                    if (application.AppId.IsNotNullOrEmpty())
+                    {
+                        this[application.AppId!] = application;
+                    }
                 });
             }
         }
