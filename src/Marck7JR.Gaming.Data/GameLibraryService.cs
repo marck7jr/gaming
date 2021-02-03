@@ -1,7 +1,6 @@
 ﻿using Marck7JR.Core.Extensions;
 using Marck7JR.Gaming.Data.Contracts;
 using System;
-using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,14 +38,11 @@ namespace Marck7JR.Gaming.Data
                 {
                     if (application.AppId.IsNotNullOrEmpty())
                     {
-                        this[application.AppId!] = application;
+                        _library.Applications[application.AppId!] = application;
                     }
                 });
             }
         }
-
-        public IEnumerator<KeyValuePair<string, GameApplication>> GetEnumerator() => _library.GetEnumerator();
-        IEnumerator IEnumerable.GetEnumerator() => _library.GetEnumerator();
 
         public virtual Func<Task<T>>? GetLibraryAsync => () => BuildLibraryAsync().ContinueWith((task) =>
         {
@@ -60,7 +56,5 @@ namespace Marck7JR.Gaming.Data
         public virtual Func<T, IAsyncEnumerable<GameApplication>>? GetApplicationsOfflineAsync { get; }
         public virtual Func<T, IAsyncEnumerable<GameApplication>>? GetApplicationsOnlineAsync { get; }
         public bool IsAvailable => _library.IsAvailable;
-        public GameApplication this[string appId] { get => _library[appId]; set => _library[appId] = value; }
-        public GameApplication this[int index] { get => _library[index]; }
     }
 }

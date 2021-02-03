@@ -10,11 +10,9 @@ namespace Marck7JR.Gaming.Data.Contracts
         public RegistryKey? RegistryKey { get; }
     }
 
-    public interface IGameLibrary<T> : IGameLibrary, IEnumerable<KeyValuePair<string, T>>
+    public interface IGameLibrary<T> : IGameLibrary
         where T : IGameApplication
     {
         public IDictionary<string, T> Applications { get; }
-        public T this[int index] { get; }
-        public T this[string appId] { get; set; }
     }
 }

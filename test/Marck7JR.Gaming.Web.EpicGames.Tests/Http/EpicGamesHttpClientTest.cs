@@ -4,7 +4,6 @@ using Marck7JR.Gaming.Web.EpicGames.Http.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -44,7 +43,7 @@ namespace Marck7JR.Gaming.Web.EpicGames.Http
         public TestContext? TestContext { get; set; }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Ignore]
         public async Task GetOAuthTokenResponseAsync_WithSetSidResponse_IsNotNull()
         {
             var setSidResponse = File.ReadAllText($"_{nameof(SetSidResponse)}.json").FromJson<SetSidResponse>();
@@ -63,6 +62,7 @@ namespace Marck7JR.Gaming.Web.EpicGames.Http
         }
 
         [TestMethod]
+        [Ignore]
         public async Task GetOAuthTokenResponseAsync_WithOAuthTokenResponse_IsNotNull()
         {
             var oAuthTokenResponse = File.ReadAllText($"_{nameof(OAuthTokenResponse)}.json").FromJson<OAuthTokenResponse>();
@@ -82,6 +82,7 @@ namespace Marck7JR.Gaming.Web.EpicGames.Http
 
 
         [TestMethod]
+        [Ignore]
         public async Task GetCatalogResponsesAsync_IsNotNull()
         {
             var oAuthTokenResponse = File.ReadAllText($"_{nameof(OAuthTokenResponse)}.json").FromJson<OAuthTokenResponse>();

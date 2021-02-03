@@ -12,16 +12,16 @@ namespace Marck7JR.Gaming.Data
         public static T? Service { get; protected set; }
 
         [TestMethod]
-        public virtual async Task BuildAsync_IsNotEmpty()
+        public virtual async Task BuildAsync_IsNotNull()
         {
             Assert.IsNotNull(Service);
-            Assert.IsNotNull(Service!.GetLibraryAsync);
+            Assert.IsNotNull(Service?.GetLibraryAsync);
 
             var library = await Service!.GetLibraryAsync!.Invoke();
 
-            Assert.IsTrue(library.Any());
+            Assert.IsNotNull(library.Applications);
 
-            library.AsParallel().ForAll(keyValuePair =>
+            library.Applications?.ToList().ForEach(keyValuePair =>
             {
                 TestContext?.WriteLine(keyValuePair.Value.ToTestContext());
             });

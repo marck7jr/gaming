@@ -8,12 +8,5 @@ namespace Marck7JR.Gaming.Data
     {
         public static T? Library { get; protected set; }
         public TestContext? TestContext { get; set; }
-
-        [TestMethod]
-        public virtual void IsAvailable_IsTrue()
-        {
-            Assert.IsNotNull(Library);
-            Assert.IsTrue(Library!.IsAvailable);
-        }
     }
 }
