@@ -1,10 +1,8 @@
 ﻿using Marck7JR.Core.Extensions;
 using Marck7JR.Core.Extensions.Hosting;
-using Marck7JR.Gaming.Web.EpicGames.Http.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -12,29 +10,27 @@ using System.Threading.Tasks;
 namespace Marck7JR.Gaming.Web.EpicGames.Http
 {
     [TestClass]
-    [DeploymentItem("Http/_EpicGamesHttpClientOptions.json")]
-    [DeploymentItem("Http/_OAuthTokenResponse.json")]
     [DeploymentItem("Http/_SetSidResponse.json")]
     public class EpicGamesHttpClientTest
     {
         [AssemblyInitialize]
-        public static void InitializeAssembly(TestContext? _)
+        public static void AssemblyInitialize(TestContext? _)
         {
             HostBinder.GetHostBuilder()
-                .ConfigureAppConfiguration((hostBuilderContext, configuration) =>
+                .ConfigureAppConfiguration((context, configuration) =>
                 {
-                    configuration.AddJsonFile($"_{nameof(EpicGamesHttpClientOptions)}.json");
+                    configuration.AddUserSecrets<EpicGamesHttpClientTest>();
                 })
-                .ConfigureServices((hostBuilderContext, services) =>
+                .ConfigureServices((context, services) =>
                 {
                     services.AddOptions();
                     services.AddHttpClient<EpicGamesHttpClient>().ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler { CookieContainer = new(), UseCookies = true });
-                    services.Configure<EpicGamesHttpClientOptions>(hostBuilderContext.Configuration);
+                    services.Configure<EpicGamesHttpClientOptions>(context.Configuration.GetSection(nameof(EpicGamesHttpClientOptions)));
                 });
         }
 
         [ClassInitialize]
-        public static void InitializeTestClass(TestContext _)
+        public static void ClassInitialize(TestContext _)
         {
             _httpClient = HostBinder.GetHost().Services.GetRequiredService<EpicGamesHttpClient>();
         }
@@ -43,52 +39,36 @@ namespace Marck7JR.Gaming.Web.EpicGames.Http
         public TestContext? TestContext { get; set; }
 
         [TestMethod]
-        [Ignore]
         public async Task GetOAuthTokenResponseAsync_WithSetSidResponse_IsNotNull()
         {
-            var setSidResponse = File.ReadAllText($"_{nameof(SetSidResponse)}.json").FromJson<SetSidResponse>();
-
-            Assert.IsNotNull(setSidResponse);
-
-            var oAuthTokenResponse = await _httpClient!.GetOAuthTokenResponseAsync(setSidResponse);
-
-            Assert.IsNotNull(oAuthTokenResponse);
-
+            var oAuthTokenResponse = await _httpClient!.GetOAuthTokenResponseAsync();
             var json = await oAuthTokenResponse!.ToJsonAsync();
 
-            await File.WriteAllTextAsync("Http/_OAuthTokenResponse.json", json);
+            Assert.IsNotNull(oAuthTokenResponse);
+            Assert.IsTrue(json.IsNotNullOrEmpty());
 
-            TestContext?.Write(json);
+            TestContext?.WriteLine(json);
         }
 
         [TestMethod]
-        [Ignore]
         public async Task GetOAuthTokenResponseAsync_WithOAuthTokenResponse_IsNotNull()
         {
-            var oAuthTokenResponse = File.ReadAllText($"_{nameof(OAuthTokenResponse)}.json").FromJson<OAuthTokenResponse>();
-
-            Assert.IsNotNull(oAuthTokenResponse);
-
-            oAuthTokenResponse = await _httpClient!.GetOAuthTokenResponseAsync(oAuthTokenResponse);
-
-            Assert.IsNotNull(oAuthTokenResponse);
-
+            var oAuthTokenResponse = await _httpClient!.GetOAuthTokenResponseAsync();
             var json = await oAuthTokenResponse!.ToJsonAsync();
 
-            await File.WriteAllTextAsync("Http/_OAuthTokenResponse.json", json);
+            Assert.IsNotNull(oAuthTokenResponse);
+            Assert.IsTrue(json.IsNotNullOrEmpty());
 
             TestContext?.WriteLine(json);
         }
 
 
         [TestMethod]
-        [Ignore]
         public async Task GetCatalogResponsesAsync_IsNotNull()
         {
-            var oAuthTokenResponse = File.ReadAllText($"_{nameof(OAuthTokenResponse)}.json").FromJson<OAuthTokenResponse>();
+            var assetsResponseItems = await _httpClient!.GetAssetsResponsesAsync().ToListAsync();
 
-            var assetsResponseItems = await _httpClient!.GetAssetsResponsesAsync(oAuthTokenResponse).ToListAsync();
-
+            Assert.IsNotNull(assetsResponseItems);
             Assert.IsTrue(assetsResponseItems.Any());
 
             foreach (var catalogResponse in await _httpClient!.GetCatalogResponsesAsync(assetsResponseItems).ToListAsync())

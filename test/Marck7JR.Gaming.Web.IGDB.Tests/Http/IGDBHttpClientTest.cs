@@ -3,7 +3,6 @@ using Marck7JR.Core.Extensions.Hosting;
 using Marck7JR.Gaming.Web.IGDB.Http;
 using Marck7JR.Gaming.Web.IGDB.Http.Messages;
 using Marck7JR.Gaming.Web.Twitch.Http;
-using Marck7JR.Gaming.Web.Twitch.Http.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,8 +11,6 @@ using System.Threading.Tasks;
 namespace Marck7JR.Gaming.Web.IGDB.Tests.Http
 {
     [TestClass]
-    [DeploymentItem("Http/_TwitchHttpClientOptions.json")]
-    [DeploymentItem("Http/_TwitchOAuthResponse.json")]
     public class IGDBHttpClientTest
     {
         private static IGDBHttpClient? _httpClient;
@@ -23,15 +20,15 @@ namespace Marck7JR.Gaming.Web.IGDB.Tests.Http
             HostBinder.GetHostBuilder()
                 .ConfigureAppConfiguration((hostBuilderContext, configuration) =>
                 {
-                    configuration.AddJsonFile($"_{nameof(TwitchHttpClientOptions)}.json");
-                    configuration.AddJsonFile($"_{nameof(TwitchOAuthResponse)}.json");
+                    configuration.AddUserSecrets<IGDBHttpClientTest>();
                 })
                 .ConfigureServices((hostBuilderContext, services) =>
                 {
                     services.AddOptions();
                     services.AddHttpClient<IGDBHttpClient>();
-                    services.Configure<TwitchHttpClientOptions>(hostBuilderContext.Configuration);
-                    services.Configure<TwitchOAuthResponse>(hostBuilderContext.Configuration);
+                    services.AddHttpClient<TwitchHttpClient>();
+                    services.Configure<IGDBHttpClientOptions>(hostBuilderContext.Configuration.GetSection(nameof(IGDBHttpClientOptions)));
+                    services.Configure<TwitchHttpClientOptions>(hostBuilderContext.Configuration.GetSection(nameof(TwitchHttpClientOptions)));
                 });
         }
 

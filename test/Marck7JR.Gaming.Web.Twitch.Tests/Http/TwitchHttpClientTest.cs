@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace Marck7JR.Gaming.Web.Twitch.Http
 {
     [TestClass]
-    [DeploymentItem("Http/_TwitchHttpClientOptions.json")]
     public class TwitchHttpClientTest
     {
         static TwitchHttpClientTest()
@@ -17,13 +16,13 @@ namespace Marck7JR.Gaming.Web.Twitch.Http
             HostBinder.GetHostBuilder()
                 .ConfigureAppConfiguration(builder =>
                 {
-                    builder.AddJsonFile($"_{nameof(TwitchHttpClientOptions)}.json");
+                    builder.AddUserSecrets<TwitchHttpClientTest>();
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddOptions();
                     services.AddHttpClient<TwitchHttpClient>();
-                    services.Configure<TwitchHttpClientOptions>(hostContext.Configuration);
+                    services.Configure<TwitchHttpClientOptions>(hostContext.Configuration.GetSection(nameof(TwitchHttpClientOptions)));
                 });
         }
 

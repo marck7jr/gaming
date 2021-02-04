@@ -5,6 +5,7 @@ VisualStudioVersion = 16.0.30914.41
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7E27AA10-111F-4409-ACEB-C7070C0F0434}"
 	ProjectSection(SolutionItems) = preProject
+		Directory.Build.json = Directory.Build.json
 		Directory.Build.props = Directory.Build.props
 		nuget.config = nuget.config
 		README.md = README.md

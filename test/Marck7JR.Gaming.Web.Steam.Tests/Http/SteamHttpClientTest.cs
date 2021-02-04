@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace Marck7JR.Gaming.Web.Steam.Http
 {
     [TestClass]
-    [DeploymentItem("Http/_SteamHttpClientOptions.json")]
     public class SteamHttpClientTest
     {
         [AssemblyInitialize]
@@ -18,13 +17,13 @@ namespace Marck7JR.Gaming.Web.Steam.Http
             HostBinder.GetHostBuilder()
                 .ConfigureAppConfiguration((hostBuilderContext, configuration) =>
                 {
-                    configuration.AddJsonFile($"_{nameof(SteamHttpClientOptions)}.json");
+                    configuration.AddUserSecrets<SteamHttpClientTest>();
                 })
                 .ConfigureServices((hostBuilderContext, services) =>
                 {
                     services.AddOptions();
                     services.AddHttpClient<SteamHttpClient>();
-                    services.Configure<SteamHttpClientOptions>(hostBuilderContext.Configuration);
+                    services.Configure<SteamHttpClientOptions>(hostBuilderContext.Configuration.GetSection(nameof(SteamHttpClientOptions)));
                 });
         }
 
