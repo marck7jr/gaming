@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -194,12 +193,12 @@ namespace Marck7JR.Gaming.Web.EpicGames.Http
 
         public async IAsyncEnumerable<AssetsResponse> GetAssetsResponsesAsync(OAuthTokenResponse? oAuthTokenResponse)
         {
-            if (oAuthTokenResponse is null)
+            if (oAuthTokenResponse?.expires_at < DateTime.UtcNow)
             {
-                throw new ArgumentNullException(nameof(oAuthTokenResponse));
+                yield break;
             }
 
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue($"{oAuthTokenResponse.token_type}", $"{oAuthTokenResponse.access_token}");
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue($"{oAuthTokenResponse?.token_type}", $"{oAuthTokenResponse?.access_token}");
 
             var response = await _httpClient.GetAsync($"https://{_launcher_host}/launcher/api/public/assets/Windows?label=Live");
 
@@ -218,7 +217,7 @@ namespace Marck7JR.Gaming.Web.EpicGames.Http
             }
         }
 
-        public async IAsyncEnumerable<CatalogResponse> GetCatalogResponsesAsync(IEnumerable<AssetsResponse> assetsResponses)
+        public async IAsyncEnumerable<CatalogResponse> GetCatalogResponsesAsync(IEnumerable<AssetsResponse>? assetsResponses)
         {
             if (assetsResponses is null)
             {

@@ -38,7 +38,10 @@ namespace Marck7JR.Gaming.Data
                 {
                     if (application.AppId.IsNotNullOrEmpty())
                     {
-                        _library.Applications[application.AppId!] = application;
+                        lock (_library.Applications)
+                        {
+                            _library.Applications[application.AppId!] = application;
+                        }
                     }
                 });
             }
@@ -46,10 +49,12 @@ namespace Marck7JR.Gaming.Data
 
         public virtual Func<Task<T>>? GetLibraryAsync => () => BuildLibraryAsync().ContinueWith((task) =>
         {
-            if (task is Task { IsCompleted: true, Status: TaskStatus.RanToCompletion })
+            task.ConfigureAwait(true).GetAwaiter().OnCompleted(() =>
             {
                 // TODO: Need to implement raising events
-            }
+            });
+
+            task.Wait();
 
             return _library;
         });

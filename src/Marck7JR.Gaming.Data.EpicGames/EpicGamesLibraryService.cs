@@ -15,18 +15,15 @@ namespace Marck7JR.Gaming.Data.EpicGames
     public class EpicGamesLibraryService : GameLibraryService<EpicGamesLibrary>
     {
         private readonly EpicGamesHttpClient _httpClient;
-        private readonly OAuthTokenResponse _options;
 
-        public EpicGamesLibraryService(EpicGamesLibrary? library, EpicGamesHttpClient httpClient, IOptions<OAuthTokenResponse> options) : base(library)
+        public EpicGamesLibraryService(EpicGamesLibrary? library, EpicGamesHttpClient httpClient) : base(library)
         {
             _httpClient = httpClient;
-            _options = options.Value;
         }
 
-        public EpicGamesLibraryService(IGameLibraryFactory gameLibraryFactory, EpicGamesHttpClient httpClient, IOptions<OAuthTokenResponse> options) : base(gameLibraryFactory)
+        public EpicGamesLibraryService(IGameLibraryFactory gameLibraryFactory, EpicGamesHttpClient httpClient) : base(gameLibraryFactory)
         {
             _httpClient = httpClient;
-            _options = options.Value;
         }
 
         public override Func<EpicGamesLibrary, IAsyncEnumerable<GameApplication>>? GetApplicationsOfflineAsync => GetGameApplicationsOfflineAsync;
@@ -58,7 +55,7 @@ namespace Marck7JR.Gaming.Data.EpicGames
         {
             if (_httpClient is not null)
             {
-                var assetsResponses = await _httpClient.GetAssetsResponsesAsync(_options).ToListAsync();
+                var assetsResponses = await _httpClient.GetAssetsResponsesAsync().ToListAsync();
                 var catalogResponses = await _httpClient.GetCatalogResponsesAsync(assetsResponses)
                     .Where(catalog => catalog is not null)
                     .Where(catalog => !catalog.categories.Any(_ => _.path.Equals("dlc", StringComparison.InvariantCultureIgnoreCase)))

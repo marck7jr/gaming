@@ -14,15 +14,15 @@ namespace Marck7JR.Gaming.Data.Steam
     public class SteamLibraryService : GameLibraryService<SteamLibrary>
     {
         private readonly SteamHttpClient _httpClient;
-        private readonly GetPlayerSummaries _options;
+        private readonly SteamHttpClientOptions _options;
 
-        public SteamLibraryService(SteamLibrary library, SteamHttpClient httpClient, IOptions<GetPlayerSummaries> options) : base(library)
+        public SteamLibraryService(SteamLibrary library, SteamHttpClient httpClient, IOptions<SteamHttpClientOptions> options) : base(library)
         {
             _httpClient = httpClient;
             _options = options.Value;
         }
 
-        public SteamLibraryService(IGameLibraryFactory gameLibraryFactory, SteamHttpClient httpClient, IOptions<GetPlayerSummaries> options) : base(gameLibraryFactory)
+        public SteamLibraryService(IGameLibraryFactory gameLibraryFactory, SteamHttpClient httpClient, IOptions<SteamHttpClientOptions> options) : base(gameLibraryFactory)
         {
             _httpClient = httpClient;
             _options = options.Value;
@@ -62,9 +62,14 @@ namespace Marck7JR.Gaming.Data.Steam
 
         private async IAsyncEnumerable<GameApplication> GetGameApplicationOnlineAsync(SteamLibrary library)
         {
+            if (_options.GetPlayerSummaries is null)
+            {
+                throw new NullReferenceException();
+            }
+
             var getOwnedGames = await _httpClient
                     .FromIPlayerService()
-                    .GetOwnedGamesAsync(queries: new[] { "include_played_free_games=true", "include_appinfo=true", $"steamid={_options.response.players.player.First().steamid}" });
+                    .GetOwnedGamesAsync(queries: new[] { "include_played_free_games=true", "include_appinfo=true", $"steamid={_options.GetPlayerSummaries.response.players.player.First().steamid}" });
 
             if (getOwnedGames is not null)
             {

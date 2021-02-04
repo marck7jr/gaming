@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Marck7JR.Gaming.Web.Steam.Http
@@ -61,11 +62,11 @@ namespace Marck7JR.Gaming.Web.Steam.Http
                 .FromISteamUser()
                 .GetGetPlayerSummariesAsync(queries: new[] { $"steamids={string.Join(',', steamids)}" });
 
-            Assert.IsNotNull(getPlayerSummaries);
-
             var json = await getPlayerSummaries!.ToJsonAsync();
 
-            await File.WriteAllTextAsync("Http/_GetPlayerSummaries.json", json);
+            Assert.IsNotNull(getPlayerSummaries);
+            Assert.IsTrue(getPlayerSummaries?.response.players.player.Any() ?? false);
+            Assert.IsTrue(json.IsNotNullOrEmpty());
 
             TestContext?.WriteLine(getPlayerSummaries!.ToJson());
         }

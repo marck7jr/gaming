@@ -14,9 +14,6 @@ namespace Marck7JR.Gaming.Data
         [TestMethod]
         public virtual async Task BuildAsync_IsNotNull()
         {
-            Assert.IsNotNull(Service);
-            Assert.IsNotNull(Service?.GetLibraryAsync);
-
             var library = await Service!.GetLibraryAsync!.Invoke();
 
             Assert.IsNotNull(library.Applications);
