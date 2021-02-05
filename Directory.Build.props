@@ -7,14 +7,18 @@
 		</PackageReference>
 	</ItemGroup>
 
-	<ItemGroup>
-		<Content Include="$(MSBuildThisFileDirectory)\Directory.Build.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
-
 	<PropertyGroup>
 		<GitVersionBaseDirectory>$(MSBuildThisFileDirectory)</GitVersionBaseDirectory>
 	</PropertyGroup>
+
+	<PropertyGroup>
+		<DirectoryBuildJsonFilePath>$(MSBuildThisFileDirectory)\Directory.Build.json</DirectoryBuildJsonFilePath>
+	</PropertyGroup>
+
+	<ItemGroup Condition="Exists($(DirectoryBuildJsonFilePath))">
+		<Content Include="$(DirectoryBuildJsonFilePath)">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
 </Project>

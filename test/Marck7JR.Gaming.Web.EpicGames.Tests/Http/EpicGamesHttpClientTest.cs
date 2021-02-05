@@ -21,7 +21,7 @@ namespace Marck7JR.Gaming.Web.EpicGames.Http
             HostBinder.GetHostBuilder()
                 .ConfigureAppConfiguration((context, configuration) =>
                 {
-                    configuration.AddJsonFile(JsonFilePath);
+                    configuration.AddJsonFile(JsonFilePath, true);
                 })
                 .ConfigureServices((context, services) =>
                 {

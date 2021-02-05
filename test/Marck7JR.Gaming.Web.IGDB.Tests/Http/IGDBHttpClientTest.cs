@@ -24,7 +24,7 @@ namespace Marck7JR.Gaming.Web.IGDB.Tests.Http
             HostBinder.GetHostBuilder()
                 .ConfigureAppConfiguration((hostBuilderContext, configuration) =>
                 {
-                    configuration.AddJsonFile(JsonFilePath);
+                    configuration.AddJsonFile(JsonFilePath, true);
                 })
                 .ConfigureServices((hostBuilderContext, services) =>
                 {

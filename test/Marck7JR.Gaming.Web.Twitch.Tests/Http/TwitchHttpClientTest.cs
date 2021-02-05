@@ -20,7 +20,7 @@ namespace Marck7JR.Gaming.Web.Twitch.Http
             HostBinder.GetHostBuilder()
                 .ConfigureAppConfiguration(builder =>
                 {
-                    builder.AddJsonFile(JsonFilePath);
+                    builder.AddJsonFile(JsonFilePath, true);
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
