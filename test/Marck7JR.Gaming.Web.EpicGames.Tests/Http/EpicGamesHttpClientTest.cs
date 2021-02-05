@@ -10,16 +10,18 @@ using System.Threading.Tasks;
 namespace Marck7JR.Gaming.Web.EpicGames.Http
 {
     [TestClass]
-    [DeploymentItem("Http/_SetSidResponse.json")]
+    [DeploymentItem(JsonFilePath)]
     public class EpicGamesHttpClientTest
     {
+        public const string JsonFilePath = "Directory.Build.json";
+
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext? _)
         {
             HostBinder.GetHostBuilder()
                 .ConfigureAppConfiguration((context, configuration) =>
                 {
-                    configuration.AddUserSecrets<EpicGamesHttpClientTest>();
+                    configuration.AddJsonFile(JsonFilePath);
                 })
                 .ConfigureServices((context, services) =>
                 {

@@ -7,8 +7,14 @@
 		</PackageReference>
 	</ItemGroup>
 
+	<ItemGroup>
+		<Content Include="$(MSBuildThisFileDirectory)\Directory.Build.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
 	<PropertyGroup>
 		<GitVersionBaseDirectory>$(MSBuildThisFileDirectory)</GitVersionBaseDirectory>
 	</PropertyGroup>
-	
+
 </Project>

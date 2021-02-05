@@ -11,16 +11,20 @@ using System.Threading.Tasks;
 namespace Marck7JR.Gaming.Web.IGDB.Tests.Http
 {
     [TestClass]
+    [DeploymentItem(JsonFilePath)]
     public class IGDBHttpClientTest
     {
+        public const string JsonFilePath = "Directory.Build.json";
+
         private static IGDBHttpClient? _httpClient;
 
-        static IGDBHttpClientTest()
+        [AssemblyInitialize]
+        public static void AssemblyInitialize(TestContext? _)
         {
             HostBinder.GetHostBuilder()
                 .ConfigureAppConfiguration((hostBuilderContext, configuration) =>
                 {
-                    configuration.AddUserSecrets<IGDBHttpClientTest>();
+                    configuration.AddJsonFile(JsonFilePath);
                 })
                 .ConfigureServices((hostBuilderContext, services) =>
                 {
@@ -35,7 +39,7 @@ namespace Marck7JR.Gaming.Web.IGDB.Tests.Http
         public TestContext? TestContext { get; set; }
 
         [ClassInitialize]
-        public static void InitializeTestClass(TestContext? _)
+        public static void ClassInitialize(TestContext? _)
         {
             _httpClient = HostBinder.GetHost().Services.GetRequiredService<IGDBHttpClient>();
         }

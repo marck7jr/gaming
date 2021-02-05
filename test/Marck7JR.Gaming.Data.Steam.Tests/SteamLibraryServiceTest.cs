@@ -13,7 +13,7 @@ namespace Marck7JR.Gaming.Data.Steam
         [AssemblyInitialize]
         public static void InitializeAssembly(TestContext? testContext)
         {
-            SteamHttpClientTest.InitializeAssembly(testContext);
+            SteamHttpClientTest.AssemblyInitialize(testContext);
 
             HostBinder.GetHostBuilder()
                 .ConfigureServices((hostBuilderContext, services) =>

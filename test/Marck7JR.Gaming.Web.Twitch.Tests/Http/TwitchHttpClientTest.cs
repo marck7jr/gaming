@@ -9,14 +9,18 @@ using System.Threading.Tasks;
 namespace Marck7JR.Gaming.Web.Twitch.Http
 {
     [TestClass]
+    [DeploymentItem(JsonFilePath)]
     public class TwitchHttpClientTest
     {
-        static TwitchHttpClientTest()
+        public const string JsonFilePath = "Directory.Build.json";
+
+        [AssemblyInitialize]
+        public static void AssemblyInitialize(TestContext? _)
         {
             HostBinder.GetHostBuilder()
                 .ConfigureAppConfiguration(builder =>
                 {
-                    builder.AddUserSecrets<TwitchHttpClientTest>();
+                    builder.AddJsonFile(JsonFilePath);
                 })
                 .ConfigureServices((hostContext, services) =>
                 {

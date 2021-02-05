@@ -6,9 +6,11 @@ using Microsoft.Extensions.Options;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Marck7JR.Gaming.Web.Steam.Http
@@ -75,8 +77,20 @@ namespace Marck7JR.Gaming.Web.Steam.Http
         public ISteamUserResponseBuilder FromISteamUser() => From<ISteamUserResponseBuilder>(this);
         public ISteamUserStatsResponseBuilder FromISteamUserStats() => From<ISteamUserStatsResponseBuilder>(this);
 
-        public async Task<GetOwnedGames?> GetOwnedGamesAsync(string? version = "v0001", params string[] queries) => await GetAsync<GetOwnedGames>(version, queries);
-        public async Task<GetPlayerSummaries?> GetGetPlayerSummariesAsync(string? version = "v0001", params string[] queries) => await GetAsync<GetPlayerSummaries>(version, queries);
-        public async Task<GetSchemaForGame?> GetGetSchemaForGameAsync(string? version = "v2", params string[] queries) => await GetAsync<GetSchemaForGame>(version, queries);
+        public Task<GetOwnedGames?> GetOwnedGamesAsync(string? version = "v0001", params string[] queries)
+        {
+            if (_options.GetPlayerSummaries?.response.players.player.FirstOrDefault() is { steamid: string steamId })
+            {
+                var _queries = new[] { $"steamid={steamId}" };
+
+                var regex = new Regex(@"steamid=(\d{0,31})", RegexOptions.Compiled);
+
+                queries = queries.Where(query => !regex.IsMatch(query)).Concat(_queries).ToArray();
+            }
+
+            return GetAsync<GetOwnedGames>(version, queries);
+        }
+        public Task<GetPlayerSummaries?> GetGetPlayerSummariesAsync(string? version = "v0001", params string[] queries) => GetAsync<GetPlayerSummaries>(version, queries);
+        public Task<GetSchemaForGame?> GetGetSchemaForGameAsync(string? version = "v2", params string[] queries) => GetAsync<GetSchemaForGame>(version, queries);
     }
 }

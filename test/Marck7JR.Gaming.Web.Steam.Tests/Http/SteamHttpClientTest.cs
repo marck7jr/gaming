@@ -1,24 +1,27 @@
 ﻿using Marck7JR.Core.Extensions;
 using Marck7JR.Core.Extensions.Hosting;
+using Marck7JR.Gaming.Web.Steam.Http.ISteamUser;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Marck7JR.Gaming.Web.Steam.Http
 {
     [TestClass]
+    [DeploymentItem(JsonFilePath)]
     public class SteamHttpClientTest
     {
+        public const string JsonFilePath = "Directory.Build.json";
+
         [AssemblyInitialize]
-        public static void InitializeAssembly(TestContext? _)
+        public static void AssemblyInitialize(TestContext? _)
         {
             HostBinder.GetHostBuilder()
                 .ConfigureAppConfiguration((hostBuilderContext, configuration) =>
                 {
-                    configuration.AddUserSecrets<SteamHttpClientTest>();
+                    configuration.AddJsonFile(JsonFilePath);
                 })
                 .ConfigureServices((hostBuilderContext, services) =>
                 {
@@ -31,7 +34,7 @@ namespace Marck7JR.Gaming.Web.Steam.Http
         private static SteamHttpClient? _httpClient;
 
         [ClassInitialize]
-        public static void InitializeTestClass(TestContext? _)
+        public static void ClassInitialize(TestContext? _)
         {
             _httpClient = HostBinder.GetHost().Services.GetRequiredService<SteamHttpClient>();
         }
@@ -65,7 +68,7 @@ namespace Marck7JR.Gaming.Web.Steam.Http
             var json = await getPlayerSummaries!.ToJsonAsync();
 
             Assert.IsNotNull(getPlayerSummaries);
-            Assert.IsTrue(getPlayerSummaries?.response.players.player.Any() ?? false);
+            Assert.IsTrue(getPlayerSummaries?.response.players.player.FirstOrDefault() is GetPlayerSummaries.Player);
             Assert.IsTrue(json.IsNotNullOrEmpty());
 
             TestContext?.WriteLine(getPlayerSummaries!.ToJson());
