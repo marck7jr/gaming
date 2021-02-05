@@ -14,6 +14,8 @@ jobs:
   build:
 
     runs-on: windows-latest
+    environment: 
+      name: build
 
     steps:
     - uses: actions/checkout@v2
@@ -30,6 +32,24 @@ jobs:
     - name: Test
       continue-on-error: true
       run: dotnet test --no-build --verbosity normal
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2.2.2
+      with:
+        name: drop
+        path: |
+          **\*.nupkg
+      
+  publish:
+    
+    needs: build
+    runs-on: windows-latest
+    environment: 
+      name: release
+    
+    steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: drop
     - name: Publish
       env:
         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
