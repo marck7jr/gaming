@@ -71,7 +71,6 @@ namespace Marck7JR.Gaming.Web.EpicGames.Http
             var assetsResponseItems = await _httpClient!.GetAssetsResponsesAsync().ToListAsync();
 
             Assert.IsNotNull(assetsResponseItems);
-            Assert.IsTrue(assetsResponseItems.Any());
 
             foreach (var catalogResponse in await _httpClient!.GetCatalogResponsesAsync(assetsResponseItems).ToListAsync())
             {

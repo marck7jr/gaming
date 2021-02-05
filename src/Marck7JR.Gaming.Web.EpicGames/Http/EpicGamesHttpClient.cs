@@ -193,9 +193,18 @@ namespace Marck7JR.Gaming.Web.EpicGames.Http
 
         public async IAsyncEnumerable<AssetsResponse> GetAssetsResponsesAsync(OAuthTokenResponse? oAuthTokenResponse)
         {
-            if (oAuthTokenResponse?.expires_at < DateTime.UtcNow)
+            if (oAuthTokenResponse is null)
             {
                 yield break;
+            }
+            else if (oAuthTokenResponse is { expires_at: DateTime expiresAt, refresh_expires_at: DateTime refreshExpiresAt })
+            {
+                if (expiresAt < DateTime.UtcNow && refreshExpiresAt < DateTime.UtcNow)
+                {
+                    yield break;
+                }
+
+                _options.OAuthTokenResponse = await GetOAuthTokenResponseAsync(_options.OAuthTokenResponse);
             }
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue($"{oAuthTokenResponse?.token_type}", $"{oAuthTokenResponse?.access_token}");
