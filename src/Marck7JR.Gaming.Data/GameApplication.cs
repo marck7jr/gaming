@@ -25,6 +25,28 @@ namespace Marck7JR.Gaming.Data
             Manifest = manifest;
         }
 
+        public static bool operator ==(GameApplication x, GameApplication y)
+        {
+            if (ReferenceEquals(x, y))
+            {
+                return true;
+            }
+
+            if (x is null)
+            {
+                return false;
+            }
+
+            if (y is null)
+            {
+                return false;
+            }
+
+            return x.Equals(y);
+        }
+
+        public static bool operator !=(GameApplication x, GameApplication y) => !(x == y);
+
         public string? Args { get => GetValue(ref args); set => SetValue(ref args, value); }
         public string? AppId { get => GetValue(ref appId); set => SetValue(ref appId, value); }
         public string? DisplayName { get => GetValue(ref displayName); set => SetValue(ref displayName, value); }
