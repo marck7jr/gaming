@@ -25,7 +25,7 @@ namespace Marck7JR.Gaming.Data
             Manifest = manifest;
         }
 
-        public static bool operator ==(GameApplication x, GameApplication y)
+        public static bool operator ==(GameApplication? x, GameApplication? y)
         {
             if (ReferenceEquals(x, y))
             {
@@ -45,7 +45,7 @@ namespace Marck7JR.Gaming.Data
             return x.Equals(y);
         }
 
-        public static bool operator !=(GameApplication x, GameApplication y) => !(x == y);
+        public static bool operator !=(GameApplication? x, GameApplication? y) => !(x == y);
 
         public string? Args { get => GetValue(ref args); set => SetValue(ref args, value); }
         public string? AppId { get => GetValue(ref appId); set => SetValue(ref appId, value); }
