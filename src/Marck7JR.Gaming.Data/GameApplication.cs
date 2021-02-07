@@ -1,10 +1,10 @@
-﻿using Marck7JR.Gaming.Data.Contracts;
+﻿using Marck7JR.Core.Data;
+using Marck7JR.Gaming.Data.Contracts;
 using System;
-using System.ComponentModel;
 
 namespace Marck7JR.Gaming.Data
 {
-    public class GameApplication : ObservableObject, IGameApplication, IEquatable<GameApplication>
+    public class GameApplication : Entity, IGameApplication, IEquatable<GameApplication>
     {
         private string? args;
         private string? appId;
@@ -14,12 +14,12 @@ namespace Marck7JR.Gaming.Data
         private string? path;
         private string? issuerName;
 
-        public GameApplication()
+        public GameApplication() : base()
         {
 
         }
 
-        public GameApplication(IGameLibrary library, object? manifest = null)
+        public GameApplication(IGameLibrary library, object? manifest = null) : this()
         {
             Issuer = library.GetType();
             Manifest = manifest;
