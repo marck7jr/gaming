@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace Marck7JR.Gaming.Data
 {
-    public class GameApplication : ObservableObject, IGameApplication, IEquatable<GameApplication>
+    public class GameApplication : ObservableObject, IComparable<GameApplication>, IGameApplication, IEquatable<GameApplication>
     {
         private string? args;
         private string? appId;
@@ -58,5 +58,16 @@ namespace Marck7JR.Gaming.Data
         public bool Equals(GameApplication? other) => AppId == other?.AppId && Issuer == other?.Issuer;
         public override bool Equals(object obj) => Equals(obj as GameApplication);
         public override int GetHashCode() => (AppId, Issuer).GetHashCode();
+        public virtual int CompareTo(GameApplication other)
+        {
+            if (other is not { AppId: string appId, Issuer: Type issuer, })
+            {
+                return 1;
+            }
+
+            return AppId?.CompareTo(appId) ^ Issuer?.FullName.CompareTo(issuer.FullName) ?? default;
+        }
+
+        int IComparable<GameApplication>.CompareTo(GameApplication other) => CompareTo(other);
     }
 }
