@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace Marck7JR.Gaming.Data
 {
-    public class GameApplication : ObservableObject, IComparable<GameApplication>, IGameApplication, IEquatable<GameApplication>
+    public class GameApplication : ObservableObject, IComparable, IComparable<GameApplication>, IGameApplication, IEquatable<GameApplication>
     {
         private string? args;
         private string? appId;
@@ -54,11 +54,7 @@ namespace Marck7JR.Gaming.Data
         public Type? Issuer { get => GetValue(ref issuer); set => SetValue(ref issuer, value); }
         public object? Manifest { get => GetValue(ref manifest); set => SetValue(ref manifest, value); }
         public string? Path { get => GetValue(ref path); set => SetValue(ref path, value); }
-
-        public bool Equals(GameApplication? other) => AppId == other?.AppId && Issuer == other?.Issuer;
-        public override bool Equals(object obj) => Equals(obj as GameApplication);
-        public override int GetHashCode() => (AppId, Issuer).GetHashCode();
-        public virtual int CompareTo(GameApplication other)
+        public virtual int CompareTo(GameApplication? other)
         {
             if (other is not { AppId: string appId, Issuer: Type issuer, })
             {
@@ -67,7 +63,11 @@ namespace Marck7JR.Gaming.Data
 
             return AppId?.CompareTo(appId) ^ Issuer?.FullName.CompareTo(issuer.FullName) ?? default;
         }
-
-        int IComparable<GameApplication>.CompareTo(GameApplication other) => CompareTo(other);
+        public virtual bool Equals(GameApplication? other) => AppId == other?.AppId && Issuer == other?.Issuer;
+        public override bool Equals(object obj) => Equals(obj as GameApplication);
+        public override int GetHashCode() => (AppId, Issuer).GetHashCode();
+        int IComparable<GameApplication>.CompareTo(GameApplication? other) => CompareTo(other);
+        int IComparable.CompareTo(object obj) => CompareTo(obj as GameApplication);
+        bool IEquatable<GameApplication>.Equals(GameApplication other) => Equals(other);
     }
 }
