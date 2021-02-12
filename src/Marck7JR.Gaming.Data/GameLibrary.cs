@@ -17,6 +17,7 @@ namespace Marck7JR.Gaming.Data
         public string? DisplayName => GetType().GetCustomAttribute<DescriptionAttribute>().Description;
         public virtual bool IsAvailable => RegistryKey is not null;
         public RegistryKey? RegistryKey { get; protected set; }
+        public IEnumerable<IGameLibraryProtocol> Protocols => GetType().GetCustomAttributes<GameLibraryProtocolAttribute>();
         protected abstract void InitializeComponent();
     }
 }

@@ -7,6 +7,7 @@ namespace Marck7JR.Gaming.Data.Contracts
     {
         public string? DisplayName { get; }
         public bool IsAvailable { get; }
+        public IEnumerable<IGameLibraryProtocol> Protocols { get; }
         public RegistryKey? RegistryKey { get; }
     }
 
